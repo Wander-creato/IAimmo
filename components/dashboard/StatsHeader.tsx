@@ -20,7 +20,7 @@ export function StatsHeader({ stats }: StatsHeaderProps) {
   ] as const;
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
       <Card className="sm:col-span-2 xl:col-span-1">
         <p className="flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-muted">
           <Ratio className="h-3.5 w-3.5 text-accent" />
@@ -51,6 +51,20 @@ export function StatsHeader({ stats }: StatsHeaderProps) {
           </Card>
         );
       })}
+
+      <Card className="sm:col-span-2 xl:col-span-1">
+        <p className="text-xs uppercase tracking-[0.22em] text-muted">Data Hygiene</p>
+        <p className="mt-3 text-3xl font-semibold tracking-tight text-foreground">
+          {stats.duplicatesFiltered}
+        </p>
+        <p className="mt-1 text-sm text-muted">Duplicates blocked (phone/surface-price)</p>
+        <div className="mt-4 space-y-1.5 text-xs text-muted">
+          <p>Noumea Sud: {stats.byMarketZone["Noumea Sud"]}</p>
+          <p>Noumea Centre: {stats.byMarketZone["Noumea Centre"]}</p>
+          <p>Noumea Nord: {stats.byMarketZone["Noumea Nord"]}</p>
+          <p>Grand Noumea: {stats.byMarketZone["Grand Noumea"]}</p>
+        </div>
+      </Card>
     </div>
   );
 }

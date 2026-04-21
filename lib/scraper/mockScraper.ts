@@ -9,6 +9,7 @@ export type Zone =
   | "Paita"
   | "Païta"
   | "Mont-Dore";
+export type ChargesType = "HC" | "CC";
 
 export interface Listing {
   id: string;
@@ -16,10 +17,15 @@ export interface Listing {
   title: string;
   description: string;
   location: Zone;
+  district: string;
   priceXpf: number;
   postedAt: string;
   previousPriceXpf?: number;
   isAgency: boolean;
+  url: string;
+  surfaceM2?: number;
+  phoneNumber?: string;
+  chargesType?: ChargesType;
   latitude: number;
   longitude: number;
 }
@@ -30,6 +36,7 @@ type RawListing = Omit<Listing, "previousPriceXpf"> & {
 
 export type ScraperConfig = {
   provider?: "mock" | "firecrawl" | "apify";
+  rateLimitMs?: number;
 };
 
 const providerNote: Record<"mock" | "firecrawl" | "apify", string> = {
@@ -44,11 +51,24 @@ export async function crawlLocalListings(
   config: ScraperConfig = { provider: "mock" },
 ): Promise<{ listings: Listing[]; providerNote: string }> {
   const provider = config.provider ?? "mock";
-  const listings = (mockListings as RawListing[]).map((listing) => ({
-    ...listing,
-    previousPriceXpf:
-      typeof listing.previousPriceXpf === "number" ? listing.previousPriceXpf : undefined,
-  }));
+  const rateLimitMs = config.rateLimitMs ?? 200;
+  const wait = (delay: number) =>
+    new Promise<void>((resolve) => {
+      setTimeout(resolve, delay);
+    });
+
+  // Rate limiting placeholder to mimic respectful crawl pacing between requests.
+  const listings: Listing[] = [];
+  for (const rawListing of mockListings as RawListing[]) {
+    await wait(rateLimitMs);
+    listings.push({
+      ...rawListing,
+      previousPriceXpf:
+        typeof rawListing.previousPriceXpf === "number"
+          ? rawListing.previousPriceXpf
+          : undefined,
+    });
+  }
 
   return {
     listings,

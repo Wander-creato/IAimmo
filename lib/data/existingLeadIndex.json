@@ -1,0 +1,14 @@
+[
+  {
+    "id": "historic-1",
+    "phoneNumber": "+687771122",
+    "surfaceM2": 105,
+    "priceXpf": 48200000
+  },
+  {
+    "id": "historic-2",
+    "phoneNumber": "+687991188",
+    "surfaceM2": 48,
+    "priceXpf": 26800000
+  }
+]

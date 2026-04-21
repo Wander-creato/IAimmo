@@ -7,7 +7,28 @@ export default async function Home() {
     maxPriceXpf: 55_000_000,
     minPriceXpf: 12_000_000,
     locations: ["Nouméa", "Dumbéa", "Païta", "Mont-Dore"],
-    requiredKeywords: ["particulier", "urgent", "pas d'agence", "agence"],
+    requiredKeywords: [
+      "particulier",
+      "urgent",
+      "pas d'agence",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "t2",
+      "t3",
+      "vdc",
+      "vdt",
+      "pk4",
+      "pk6",
+      "pk7",
+      "hors charges",
+      "charges comprises",
+      "cc",
+      "hc",
+    ],
+    notifyHotLeads: true,
+    rateLimitMs: 250,
   });
 
   return (
@@ -17,6 +38,10 @@ export default async function Home() {
         <h1 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
           AI sourcing dashboard for private leads in Nouméa
         </h1>
+        <p className="text-sm text-muted">
+          {report.providerNote} Notifications: {report.notifications.sent}/
+          {report.notifications.attempted} hot leads delivered.
+        </p>
       </section>
       <StatsHeader stats={report.stats} />
       <BentoGrid report={report} />
