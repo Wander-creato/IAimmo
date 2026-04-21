@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  border-color: theme("colors.border");
+}
+
+body {
+  @apply min-h-screen bg-background text-foreground antialiased;
+  background-image:
+    radial-gradient(circle at 12% 14%, rgba(80, 144, 255, 0.18), transparent 32%),
+    radial-gradient(circle at 88% 86%, rgba(76, 255, 205, 0.12), transparent 34%);
+}
